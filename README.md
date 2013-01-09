@@ -1,12 +1,23 @@
 wordcloud
 =========
 
-お遊びアプリのソースを公開してみる
 
-published @ [here](http://wordcloud-mosson.sqale.jp/)
+**This is prototype**
 
+**お遊びアプリのソースを公開してみる**
+
+---
+
+*[view on live](http://wordcloud-mosson.sqale.jp/)*
+
+---
+
+#### to Boot
 
 別途 config/application.yml を設置して以下を記入する必要がある
+
+to boot, you have to set config/application.yml
+
 
 ```
 
@@ -23,3 +34,4 @@ AWS_ACCESS_REGION:
 AWS_BUCKET_NAME: 
 
 ```
+
