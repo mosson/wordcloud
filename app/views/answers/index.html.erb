@@ -1,0 +1,26 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12 tc">
+			<span class="thumb rel">
+			  <%= link_to new_theme_answer_path(theme_id: @theme.id), class: "animate-item" do %>
+          <div class="hover">
+            <span>回答する</span>
+          </div>
+
+		      <%= image_tag @theme.image.thumb.url, class: "base" %>
+			  <% end %>
+			</span>
+		</div>
+	</div>
+
+	<hr/>
+
+	<div class="row-fluid">
+	  <div class="span12 wordcloud-wrap">
+      <%- @answers.each do |answer| -%>
+	      <%= link_to answer.comment, themes_path(q: answer.comment), class: "wordcloud", data: { count: answer.count } -%>
+	    <%- end -%>
+    </div>
+	</div>
+</div>
+

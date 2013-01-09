@@ -1,0 +1,75 @@
+<div class="title-board">
+  <div class="container-fluid">
+    <% flash.each do |key,msg| %>
+      <div class="alert alert-<%= key_to_bs(key) %>">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong><%= key.to_s.titleize %>!</strong> <%= msg %>
+      </div>
+    <% end %>
+
+    <div class="row-fluid">
+      <div class="span9">
+        <h1>Sight the Insights</h1>
+        <p>これはコメントから印象を掘り起こしてみる遊びアプリです</p>
+      </div>
+      <div class="span3">
+	      <% if current_user.present? %>
+          <%= link_to new_theme_path, class:"block-link" do %>
+            画像を投稿する
+          <% end %>
+		    <% else %>
+          <%= link_to signin_path, class:"block-link" do %>
+	          ソーシャルログインして<br/>画像を投稿してみる
+	        <% end %>
+		    <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-board">
+
+  <% if params[:q].present? %>
+    <h4><em><%= params[:q] %></em>を含むもの</h4>
+    <hr/>
+  <% end %>
+
+  <div class="row-fluid">
+    <div class="span7"><%= paginate @themes %></div>
+    <div class="span5 tr">
+		  <%= form_tag(themes_path, method: :get, style: "margin: 20px 0px") do %>
+	      <label class="s">ワードから検索: <input type="text" class="search-query" name="q" placeholder="Search"></label>
+		  <% end %>
+    </div>
+  </div>
+
+  <div id="container">
+    <% @themes.each do |theme| %>
+      <div class="box">
+        <div class="image">
+          <%= link_to new_theme_answer_path(theme_id: theme.id), class: "animate-item" do %>
+            <div class="hover">
+              <span>回答する</span>
+            </div>
+
+            <%= image_tag theme.image.thumb, class: "base" %>
+          <% end %>
+        </div>
+        <div class="menu">
+          <span class="count"><%= "#{theme.answers.count} answers"  %></span>
+          <%= link_to theme_answers_path(theme_id: theme.id) do %>
+            <i class="icon-eye-open"></i>
+          <% end %>
+		      <% if current_user == theme.user %>
+	          <%= link_to theme_path(theme), method: :delete, data: { confirm: "Are you sure?"} do %>
+	            <i class="icon-trash"></i>
+	          <% end %>
+		      <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= paginate @themes %>
+</div>
+
